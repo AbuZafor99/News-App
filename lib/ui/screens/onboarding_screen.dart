@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/ui/screens/home_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -54,26 +55,36 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  margin: EdgeInsets.only(left:40,right:40),
-                  child: Material(
-                    elevation: 4,
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Color(0xff3280fe),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Center(
-                        child: Text("Get Started",
-                          textAlign:TextAlign.center,
-                          style: TextStyle(
-                          color:Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold
-                        ),),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 40, right: 40),
+                    child: Material(
+                      elevation: 4,
+                      borderRadius: BorderRadius.circular(30),
+                      child: Container(
+                        height: 60,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Color(0xff3280fe),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Get Started",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
