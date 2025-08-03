@@ -235,6 +235,71 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+            Text(
+              "Trending News",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
+              ),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    ),
+                    child: Image.asset(
+                      "assets/images/news1.jpg",
+                      height: 120,
+                      width: 120,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 1.7,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "Please Subscribe to Shivam's channel",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 1.7,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "Lorem epsum fhjkfhkshf sfkasjhfkj asfhkjsafhdkj",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -266,7 +331,7 @@ class CategoryTile extends StatelessWidget {
             width: 120,
             decoration: BoxDecoration(
               color: Colors.black26,
-              borderRadius: BorderRadius.circular(60)
+              borderRadius: BorderRadius.circular(60),
             ),
           ),
           Container(
