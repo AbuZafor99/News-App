@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getNews()async{
     News newsclass =News();
-    await newsclass.getNews();
+    articles = await newsclass.getNews();
     setState(() {
       isLoadind=false;
     });
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  Container(
+                  return Container(
                     margin: EdgeInsets.only(bottom: 5, left: 5, right: 5),
                     child: Material(
                       elevation: 3,

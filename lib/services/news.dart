@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class News{
   List<ArticleModel> news=[];
 
-  Future<void> getNews()async{
+  Future<List<ArticleModel>> getNews()async{
     String url="https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=79a1f95f811a4ac98a8067c9d0a7a81a";
 
     var response= await http.get(Uri.parse(url));
@@ -16,7 +16,7 @@ class News{
       jsonData["articles"].forEach((element){
         if(element["urlToImage"]!=null && element["description"]!=null){
           ArticleModel articleModel=ArticleModel(
-            imageUrl: element["urlToIn==mage"],
+            imageUrl: element["urlToImage"],
             descrp: element["description"],
             title: element["title"]
           );
@@ -24,5 +24,6 @@ class News{
         }
       });
     }
+    return news;
   }
 }
