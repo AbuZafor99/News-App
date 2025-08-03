@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/models/category_model.dart';
+import 'package:news_app/services/data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +11,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<CategoryModel> categories = [];
+
+  @override
+  void initState() {
+    categories = getCategories();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,15 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 10),
             Container(
-              height: MediaQuery.of(context).size.height/2.77,
+              height: MediaQuery.of(context).size.height / 2.77,
               child: ListView(
-                scrollDirection:Axis.horizontal,
+                scrollDirection: Axis.horizontal,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 5,left: 5,right: 5),
+                    margin: EdgeInsets.only(bottom: 5, left: 5, right: 5),
                     child: Material(
                       elevation: 3,
-                    borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -109,28 +119,29 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 40,
                               width: 80,
                               decoration: BoxDecoration(
-                                  color: Color(0xff3280ef),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20)
-                                  )
+                                color: Color(0xff3280ef),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                ),
                               ),
                               margin: EdgeInsets.only(left: 160),
-                              child: Icon(Icons.arrow_forward,
+                              child: Icon(
+                                Icons.arrow_forward,
                                 color: Colors.white,
                                 size: 30,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 20,),
+                  SizedBox(width: 20),
                   Container(
-                    margin: EdgeInsets.only(bottom: 5,left: 5,right: 5),
+                    margin: EdgeInsets.only(bottom: 5, left: 5, right: 5),
                     child: Material(
                       elevation: 3,
-                    borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -181,17 +192,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 40,
                               width: 80,
                               decoration: BoxDecoration(
-                                  color: Color(0xff3280ef),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20)
-                                  )
+                                color: Color(0xff3280ef),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                ),
                               ),
                               margin: EdgeInsets.only(left: 160),
-                              child: Icon(Icons.arrow_forward,
+                              child: Icon(
+                                Icons.arrow_forward,
                                 color: Colors.white,
                                 size: 30,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -200,8 +212,78 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
+            Text(
+              "Explore",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Container(
+              height: 150,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  return CategoryTile(
+                    categoryName: categories[index].categoryName,
+                    image: categories[index].image,
+                  );
+                },
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CategoryTile extends StatelessWidget {
+  final image, categoryName;
+  CategoryTile({this.image, this.categoryName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 15),
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(60),
+            child: Image.asset(
+              image,
+              height: 120,
+              width: 120,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            height: 120,
+            width: 120,
+            decoration: BoxDecoration(
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(60)
+            ),
+          ),
+          Container(
+            height: 120,
+            width: 120,
+            child: Center(
+              child: Text(
+                categoryName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
