@@ -1,4 +1,4 @@
-# News App
+# NewsNova
 
 A Flutter-based news application that provides the latest articles and headlines. This app allows users to browse news by category, view detailed articles, and enjoy a clean, user-friendly interface.
 
