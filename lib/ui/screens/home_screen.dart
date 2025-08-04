@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/models/category_model.dart';
 import 'package:news_app/services/data.dart';
+import 'package:news_app/ui/screens/category_news_screen.dart';
 
 import '../../services/news.dart';
 
@@ -15,8 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> categories = [];
-  List<ArticleModel> articles=[];
-  bool isLoadind=true;
+  List<ArticleModel> articles = [];
+  bool isLoadind = true;
 
   @override
   void initState() {
@@ -25,12 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-
-  getNews()async{
-    News newsclass =News();
+  getNews() async {
+    News newsclass = News();
     articles = await newsclass.getNews();
     setState(() {
-      isLoadind=false;
+      isLoadind = false;
     });
   }
 
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: MediaQuery.of(context).size.height / 2.77,
               child: ListView.builder(
-                itemCount:articles.length,
+                itemCount: articles.length,
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
@@ -168,18 +168,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Container(
-              height: 150,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return CategoryTile(
-                    categoryName: categories[index].categoryName,
-                    image: categories[index].image,
-                  );
-                },
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoryNewsScreen(name: "Category"),
+                  ),
+                );
+              },
+              child: Container(
+                height: 150,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    return CategoryTile(
+                      categoryName: categories[index].categoryName,
+                      image: categories[index].image,
+                    );
+                  },
+                ),
               ),
             ),
             Text(
@@ -243,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
