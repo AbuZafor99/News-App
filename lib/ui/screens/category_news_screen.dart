@@ -42,10 +42,19 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
               padding: const EdgeInsets.only(left: 15),
               child: Row(
                 children: [
-                  Icon(Icons.arrow_back_ios_new_rounded,color: Colors.white,size: 30,),
-                  SizedBox(width: MediaQuery.of(context).size.width/3.8,),
+                  GestureDetector(
+                    onTap:(){
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 3.88),
                   Text(
-                    "Category",
+                    widget.name,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -55,24 +64,81 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
                 ),
-                child: Column(
-                  children: [
-
-                  ],
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    return CategoryTile(
+                      title: categories[index].title,
+                      image: categories[index].imageUrl,
+                      description: categories[index].descrp,
+                    );
+                  },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+class CategoryTile extends StatelessWidget {
+  final image, title, description;
+  CategoryTile({this.image, this.title, this.description});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 20,right: 20,top: 40),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(image),
+          ),
+          SizedBox(height: 5.0,),
+          Container(
+            width: MediaQuery.of(context).size.width ,
+            child: Text(
+              title,
+              maxLines: 2,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(height: 5),
+          Container(
+            width: MediaQuery.of(context).size.width ,
+            child: Text(
+              description,
+              maxLines: 3,
+              style: TextStyle(
+                color: Color.fromARGB(151, 0, 0, 0),
+                fontSize: 18,
+                // fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
