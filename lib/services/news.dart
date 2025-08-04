@@ -18,7 +18,8 @@ class News{
           ArticleModel articleModel=ArticleModel(
             imageUrl: element["urlToImage"],
             descrp: element["description"],
-            title: element["title"]
+            title: element["title"],
+            url: element["url"]
           );
           news.add(articleModel);
         }

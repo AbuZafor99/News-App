@@ -18,7 +18,8 @@ class ShowCategoryNews{
           ShowCategoryModel showCategoryModel=ShowCategoryModel(
               imageUrl: element["urlToImage"],
               descrp: element["description"],
-              title: element["title"]
+              title: element["title"],
+              url: element["url"]
           );
           categoryList.add(showCategoryModel);
         }

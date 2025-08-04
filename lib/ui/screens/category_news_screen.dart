@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/show_category.dart';
 import 'package:news_app/services/show_category_news.dart';
+import 'package:news_app/ui/screens/article_screen.dart';
 
 class CategoryNewsScreen extends StatefulWidget {
   String name;
@@ -84,6 +85,7 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
                       title: categories[index].title,
                       image: categories[index].imageUrl,
                       description: categories[index].descrp,
+                      url: categories[index].url,
                     );
                   },
                 ),
@@ -97,46 +99,51 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
 }
 
 class CategoryTile extends StatelessWidget {
-  final image, title, description;
-  CategoryTile({this.image, this.title, this.description});
+  final image, title, description, url;
+  CategoryTile({this.image, this.title, this.description,this.url});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 20,right: 20,top: 40),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(image),
-          ),
-          SizedBox(height: 5.0,),
-          Container(
-            width: MediaQuery.of(context).size.width ,
-            child: Text(
-              title,
-              maxLines: 2,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>ArticleScreen(blogUrl:url)));
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 20,right: 20,top: 40),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(image),
+            ),
+            SizedBox(height: 5.0,),
+            Container(
+              width: MediaQuery.of(context).size.width ,
+              child: Text(
+                title,
+                maxLines: 2,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 5),
-          Container(
-            width: MediaQuery.of(context).size.width ,
-            child: Text(
-              description,
-              maxLines: 3,
-              style: TextStyle(
-                color: Color.fromARGB(151, 0, 0, 0),
-                fontSize: 18,
-                // fontWeight: FontWeight.w500,
+            SizedBox(height: 5),
+            Container(
+              width: MediaQuery.of(context).size.width ,
+              child: Text(
+                description,
+                maxLines: 3,
+                style: TextStyle(
+                  color: Color.fromARGB(151, 0, 0, 0),
+                  fontSize: 18,
+                  // fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

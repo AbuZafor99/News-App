@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/models/category_model.dart';
 import 'package:news_app/services/data.dart';
+import 'package:news_app/ui/screens/article_screen.dart';
 import 'package:news_app/ui/screens/category_news_screen.dart';
 
 import '../../services/news.dart';
@@ -137,20 +137,25 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             Spacer(),
-                            Container(
-                              height: 40,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: Color(0xff3280ef),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>ArticleScreen(blogUrl:articles[index].url!)));
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff3280ef),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                  ),
                                 ),
-                              ),
-                              margin: EdgeInsets.only(left: 160),
-                              child: Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                                size: 30,
+                                margin: EdgeInsets.only(left: 160),
+                                child: Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
                               ),
                             ),
                           ],
