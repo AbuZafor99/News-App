@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/models/category_model.dart';
 import 'package:news_app/services/data.dart';
+import 'package:news_app/ui/screens/category_news_screen.dart';
 
 import '../../services/news.dart';
 
@@ -15,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> categories = [];
-  List<ArticleModel> articles=[];
-  bool isLoadind=true;
+  List<ArticleModel> articles = [];
+  bool isLoadind = true;
 
   @override
   void initState() {
@@ -25,14 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-
-  getNews()async{
-    News newsclass =News();
+  getNews() async {
+    News newsclass = News();
     articles = await newsclass.getNews();
     setState(() {
-      isLoadind=false;
+      isLoadind = false;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: MediaQuery.of(context).size.height / 2.77,
               child: ListView.builder(
-                itemCount:articles.length,
+                itemCount: articles.length,
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
@@ -243,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -260,42 +262,47 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 15),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(60),
-            child: Image.asset(
-              image,
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoryNewsScreen(name: categoryName)));
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 15),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(60),
+              child: Image.asset(
+                image,
+                height: 120,
+                width: 120,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
               height: 120,
               width: 120,
-              fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                color: Colors.black26,
+                borderRadius: BorderRadius.circular(60),
+              ),
             ),
-          ),
-          Container(
-            height: 120,
-            width: 120,
-            decoration: BoxDecoration(
-              color: Colors.black26,
-              borderRadius: BorderRadius.circular(60),
-            ),
-          ),
-          Container(
-            height: 120,
-            width: 120,
-            child: Center(
-              child: Text(
-                categoryName,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            Container(
+              height: 120,
+              width: 120,
+              child: Center(
+                child: Text(
+                  categoryName,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
